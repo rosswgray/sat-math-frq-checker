@@ -30,25 +30,6 @@ def check_answer_regex(answer)
   end
 end
 
-# this works like the above method but doesn't use regex (lame!)
-# def check_answer_string(answer)
-#   invalid_message = "❗You've entered a decimal, slash, or minus sign in the wrong place"
-#   if answer.include?('-') && answer[0] != '-'
-#     return invalid_message
-#   end
-
-#   if answer.end_with?('.') || answer.count('.') > 1
-#     return invalid_message
-#   end
-
-#   if answer.include?('/')
-#     return invalid_message if answer.count('/') > 1
-#     return invalid_message if answer.start_with?('/') || answer.end_with?('/')
-#     parts = answer.split('/')
-#     return invalid_message if parts.any? { |part| part.empty? }
-#   end
-# end
-
 def convert_answer_to_latex(answer)
   if answer.include?('/')
     parts = answer.split('/')
