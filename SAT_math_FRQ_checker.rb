@@ -30,7 +30,7 @@ def check_answer_regex(answer)
   end
 end
 
-# this works like the above method but doesn't use regex
+# this works like the above method but doesn't use regex (lame!)
 # def check_answer_string(answer)
 #   invalid_message = "❗You've entered a decimal, slash, or minus sign in the wrong place"
 #   if answer.include?('-') && answer[0] != '-'
