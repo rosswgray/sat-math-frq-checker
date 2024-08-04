@@ -1,4 +1,5 @@
-# These methods work to check if a student's answer to a Digital SAT free-response question is valid, and then coverts that answer to katex
+# These methods work to check if a student's answer to a Digital SAT free-response question is valid,
+# and then coverts that answer to latex
 
 # This takes the student's answer and rejects it if either contains invalid keystrokes, or is too long 
 # A valid answer can only contain the digits 0 through 9, minus "-", decimal ".", and "/" for fractions
@@ -13,17 +14,16 @@ def check_allowed_keystrokes(answer)
   end
 end
 
-# Next, the student's string must be checked to see if it contains the right arrangement of characters
-# the minus sign may only come first
-# the decimal point may be used once
-# the fraction bar may be used once
-# the fraction bar may not come first
-# the fraction bar may not come last
-# there must be at least one digit on either side of the fraction sign
+# Next, the student's string must be checked to see if it contains the right arrangement of characters.
+# The rules are as follows:
+# 1. the minus sign may only come first
+# 2. the decimal point may only be used once
+# 3. the fraction bar may only be used once
+# 4. the fraction bar may not come first or last
+# 5. there must be at least one digit [0-9] on either side of the fraction sign
 def check_answer_regex(answer)
-  # regex = /\A-?\d+(\.\d+)?\z|\A-?\d+\/\d+\z/
-  regex = /\A-?\d+(\.\d+)?\/\d+(\.\d+)?\z|(?:-?\d+(\.\d+)?)\z/
-  if regex.match?(answer)
+  regex = /\A-?(?:(?:\d+(\.\d+)?)\/\d+(\.\d+)?|(?:\d+(\.\d+)?))\z/
+  if regex.match?(answer) && answer.count('-') <= 1 && answer.count('/') <= 1
     convert_answer_to_latex(answer)
   else
     "❗You've entered a decimal, slash, or minus sign in the wrong place"
@@ -52,7 +52,7 @@ end
 def convert_answer_to_latex(answer)
   if answer.include?('/')
     parts = answer.split('/')
-    "$cfrac{#{parts[0]}}{#{parts[1]}}$"
+    parts[0][0] == "-" ? "$-\\cfrac{#{parts[0]}}{#{parts[1]}}$" : "$\\cfrac{#{parts[0]}}{#{parts[1]}}$"
   else
     answer = "$#{answer}$"
   end
