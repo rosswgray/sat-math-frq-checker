@@ -30,6 +30,7 @@ def check_answer_regex(answer)
   end
 end
 
+# Finally, convert the string to latex formatting to make it pretty
 def convert_answer_to_latex(answer)
   if answer.include?('/')
     parts = answer.split('/')
