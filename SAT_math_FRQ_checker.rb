@@ -15,8 +15,8 @@ end
 
 # Next, the student's string must be checked to see if it contains the right arrangement of characters
 # the minus sign may only come first
-# the decimal point may only come once
-# the fraction bar may only come once
+# the decimal point may be used once
+# the fraction bar may be used once
 # the fraction bar may not come first
 # the fraction bar may not come last
 # there must be at least one digit on either side of the fraction sign
@@ -62,4 +62,3 @@ puts "Please input your answer:"
 answer = gets.chomp
 puts check_allowed_keystrokes(answer)
 puts check_answer_regex(answer)
-# puts convert_answer_to_latex(answer)
