@@ -1,9 +1,9 @@
-# These methods work to check if a student's answer to a Digital SAT free-response question is valid,
-# and then coverts that answer to latex
+# These methods check if a student's answer to a Digital SAT free-response math question is valid,
+# and then coverts that answer to latex.
 
-# This takes the student's answer and rejects it if either contains invalid keystrokes, or is too long 
-# A valid answer can only contain the digits 0 through 9, minus "-", decimal ".", and "/" for fractions
-# A valid answer is either 5 characters long, or 6 characters long if it starts with a negative sign
+# This takes the student's answer and rejects it if either contains invalid keystrokes or is too long. 
+# A valid answer may only contain the digits 0 through 9, minus "-", decimal ".", and "/" for fractions.
+# A valid answer is either 5 characters long or 6 characters long if it starts with a negative sign.
 def check_allowed_keystrokes(answer)
   if answer.match(/[^0-9\.\-\/]/)
     return "invalid"
@@ -26,11 +26,11 @@ def check_answer_regex(answer)
   if regex.match?(answer) && answer.count('-') <= 1 && answer.count('/') <= 1
     convert_answer_to_latex(answer)
   else
-    "❗You've entered a decimal, slash, or minus sign in the wrong place"
+    "❗ You've entered a decimal, slash, or minus sign in the wrong place."
   end
 end
 
-# Finally, convert the string to latex formatting to make it pretty
+# Finally, convert the string to latex formatting to make it pretty.
 def convert_answer_to_latex(answer)
   if answer.include?('/')
     parts = answer.split('/')
