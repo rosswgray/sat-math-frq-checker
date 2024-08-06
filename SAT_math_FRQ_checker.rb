@@ -4,7 +4,7 @@
 # This takes the student's answer and rejects it if either contains invalid keystrokes or is too long. 
 # A valid answer may only contain the digits 0 through 9, minus "-", decimal ".", and "/" for fractions.
 # A valid answer is either 5 characters long or 6 characters long if it starts with a negative sign.
-def check_allowed_keystrokes(answer)
+def validate_keystrokes(answer)
   if answer.match(/[^0-9\.\-\/]/)
     return "invalid"
   elsif answer.start_with?("-")
@@ -21,17 +21,17 @@ end
 # 3. the fraction bar may only be used once
 # 4. the fraction bar may not come first or last
 # 5. there must be at least one digit [0-9] on either side of the fraction sign
-def check_answer_regex(answer)
+def validate_arrangement(answer)
   regex = /\A-?(?:(?:\d+(\.\d+)?)\/\d+(\.\d+)?|(?:\d+(\.\d+)?))\z/
   if regex.match?(answer) && answer.count('-') <= 1 && answer.count('/') <= 1
-    convert_answer_to_latex(answer)
+    convert_to_latex(answer)
   else
     "❗ You've entered a decimal, slash, or minus sign in the wrong place."
   end
 end
 
 # Finally, convert the string to latex formatting to make it pretty.
-def convert_answer_to_latex(answer)
+def convert_to_latex(answer)
   if answer.include?('/')
     parts = answer.split('/')
     parts[0][0] == "-" ? "$-\\cfrac{#{parts[0]}}{#{parts[1]}}$" : "$\\cfrac{#{parts[0]}}{#{parts[1]}}$"
@@ -42,5 +42,5 @@ end
 
 puts "Please input your answer:"
 answer = gets.chomp
-puts check_allowed_keystrokes(answer)
-puts check_answer_regex(answer)
+puts validate_keystrokes(answer)
+puts validate_arrangement(answer)
