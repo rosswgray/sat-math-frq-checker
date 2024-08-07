@@ -1,7 +1,7 @@
 # These methods check if a student's answer to a Digital SAT free-response math question is valid,
 # and then coverts that answer to latex.
 
-# This takes the student's answer and rejects it if either contains invalid keystrokes or is too long. 
+# This takes the student's answer and rejects it if it either contains invalid keystrokes or is too long. 
 # A valid answer may only contain the digits 0 through 9, minus "-", decimal ".", and "/" for fractions.
 # A valid answer is either 5 characters long or 6 characters long if it starts with a negative sign.
 def validate_keystrokes(answer)
