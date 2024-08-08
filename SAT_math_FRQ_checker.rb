@@ -22,7 +22,7 @@ end
 # 4. the fraction bar may not come first or last
 # 5. there must be at least one digit [0-9] on either side of the fraction sign
 def validate_arrangement(answer)
-  regex = /\A-?(?:(?:\d+(\.\d+)?)\/\d+(\.\d+)?|(?:\d+(\.\d+)?))\z/
+  regex = /\A-?(?:(?:\d+(\.\d+)?)\/\d+(\.\d+)?|(?:\d*(\.\d+)?))\z/
   if regex.match?(answer) && answer.count('-') <= 1 && answer.count('/') <= 1
     convert_to_latex(answer)
   else
