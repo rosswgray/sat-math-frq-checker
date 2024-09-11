@@ -5,12 +5,14 @@
 # A valid answer may only contain the digits 0 through 9, minus "-", decimal ".", and "/" for fractions.
 # A valid answer is either 5 characters long or 6 characters long if it starts with a negative sign.
 def validate_keystrokes(answer)
-  if answer.match(/[^0-9\.\-\/]/)
-    return "invalid"
-  elsif answer.start_with?("-")
-    return answer.length <= 6 ? "valid" : "invalid"
+  return "invalid" if answer.match(/[^0-9\.\-\/]/)
+
+  max_length = answer.start_with?("-") ? 6 : 5
+  if answer.length <= max_length
+    puts "The answer is valid"
+    validate_arrangement(answer)
   else
-    return answer.length <= 5 ? "valid" : "invalid"
+    puts "The answer is invalid"
   end
 end
 
@@ -19,11 +21,10 @@ end
 # 1. the minus sign may only come first
 # 2. the decimal point may only be used once
 # 3. the fraction bar may only be used once
-# 4. the fraction bar may not come first or last
-# 5. there must be at least one digit [0-9] on either side of the fraction sign
+# 4. the fraction bar may not come first
 def validate_arrangement(answer)
-  regex = /\A-?(?:(?:\d+(\.\d+)?)\/\d+(\.\d+)?|(?:\d*(\.\d+)?))\z/
-  if regex.match?(answer) && answer.count('-') <= 1 && answer.count('/') <= 1
+  regex = /\A-?(\d*(\.\d+)?(\/\d*)?)?\z/
+  if answer.match?(regex) && answer.count('-') <= 1 && answer.count('/') <= 1 && !answer.start_with?('/')
     convert_to_latex(answer)
   else
     "❗ You've entered a decimal, slash, or minus sign in the wrong place."
@@ -40,7 +41,13 @@ def convert_to_latex(answer)
   end
 end
 
-puts "Please input your answer:"
-answer = gets.chomp
-puts validate_keystrokes(answer)
-puts validate_arrangement(answer)
+## TESTING ##
+
+answers = ["E", "-", "-2", "2", "-3/4", "-.3", "222222", "-22222", ".3", "0.33333", "3.14", "3.14.5", "3/2", "3/"]
+
+# for each answer in the array, check if it is valid and print the latex version of the answer
+answers.each do |answer|
+  puts "checking answer #{answers.index(answer) + 1}: #{answer}"
+  puts validate_keystrokes(answer)
+  puts "_________________________"
+end
