@@ -23,7 +23,7 @@ end
 # 3. the fraction bar may only be used once
 # 4. the fraction bar may not come first
 def validate_arrangement(answer)
-  regex = /\A-?(\d*(\.\d+)?(\/\d*)?)?\z/
+  regex = /\A-?(\d*(\.\d*)?(\/\d*)?)?\z/
   if answer.match?(regex) && answer.count('-') <= 1 && answer.count('/') <= 1 && !answer.start_with?('/')
     convert_to_latex(answer)
   else
@@ -43,7 +43,7 @@ end
 
 ## TESTING ##
 
-answers = ["E", "-", "-2", "2", "-3/4", "-.3", "222222", "-22222", ".3", "0.33333", "3.14", "3.14.5", "3/2", "3/"]
+answers = ["E", "-", "-2", "2", "-3/4", "3.", "-.3", "222222", "-22222", ".3", "0.33333", "3.14", "3.14.5", "3/2", "3/"]
 
 # for each answer in the array, check if it is valid and print the latex version of the answer
 answers.each do |answer|
